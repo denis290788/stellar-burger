@@ -40,6 +40,11 @@ export const burgerConstructorSlice = createSlice({
       state.ingredients = ingredients;
     },
     resetConstructor: () => initialState
+  },
+  selectors: {
+    selectorConstructorBun: (state: TBurgerConstructorState) => state.bun,
+    selectorConstructorIngredients: (state: TBurgerConstructorState) =>
+      state.ingredients
   }
 });
 
@@ -49,3 +54,5 @@ export const {
   reorderConstructor,
   resetConstructor
 } = burgerConstructorSlice.actions;
+
+export const selectorConstructor = burgerConstructorSlice.selectors;

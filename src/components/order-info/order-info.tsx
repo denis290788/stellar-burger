@@ -1,21 +1,44 @@
 import { FC, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
+import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
+import { selectorConstructor } from '../../services/slices/burgerConstructor';
+import { useSelector } from '../../services/store';
+import { selectorOrder } from '../../services/slices/order';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
+  /** TODO:DONE? взять переменные orderData и ingredients из стора */
+
+  const { selectorConstructorIngredients, selectorConstructorBun } =
+    selectorConstructor;
+  const ingredients: TIngredient[] = useSelector(
+    selectorConstructorIngredients
+  ) as TConstructorIngredient[];
+  const bun: TIngredient = useSelector(
+    selectorConstructorBun
+  ) as TConstructorIngredient;
+  // const ingredientsIds = ingredients.map((ing) => ing._id);
+
+  const ingredientsIds = [...ingredients.map((ing) => ing._id), bun._id];
+
+  const { selectorOrderData } = selectorOrder;
+  const order: TOrder | null = useSelector(selectorOrderData);
+
+  if (!order) {
+    return <Preloader />;
+  }
+
   const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
+    createdAt: order.createdAt,
+    ingredients: ingredientsIds,
+    _id: order._id,
+    status: order.status,
+    name: order.name,
+    updatedAt: order.updatedAt,
+    number: order.number
   };
 
-  const ingredients: TIngredient[] = [];
+  // const ingredients: TIngredient[] = [];
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

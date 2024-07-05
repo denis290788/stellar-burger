@@ -12,11 +12,11 @@ export const ConstructorPage: FC = () => {
   /** TODO:DONE взять переменную из стора */
   const { selectorIngredientsStatus } = selectorIngredients;
   const ingredientsStatus = useSelector(selectorIngredientsStatus);
-  // const isIngredientsLoading = false;
+  const isIngredientsLoading = ingredientsStatus === 'Loading' ? true : false;
 
   return (
     <>
-      {ingredientsStatus === 'Loading' ? (
+      {isIngredientsLoading ? (
         <Preloader />
       ) : (
         <main className={styles.containerMain}>

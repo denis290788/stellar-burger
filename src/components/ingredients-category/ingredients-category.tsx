@@ -2,17 +2,23 @@ import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
+import { selectorConstructor } from 'src/services/slices/burgerConstructor';
+import { useSelector } from 'src/services/store';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  /** TODO: взять переменную из стора */
+  const { selectorConstructorBun, selectorConstructorIngredients } =
+    selectorConstructor;
+  const constructorBun = useSelector(selectorConstructorBun);
+  const constructorIngredients = useSelector(selectorConstructorIngredients);
+  /** TODO:DONE? взять переменную из стора */
   const burgerConstructor = {
     bun: {
-      _id: ''
+      _id: constructorBun ? constructorBun._id : ''
     },
-    ingredients: []
+    ingredients: constructorIngredients
   };
 
   const ingredientsCounters = useMemo(() => {

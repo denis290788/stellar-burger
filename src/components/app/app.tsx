@@ -22,23 +22,28 @@ import { checkUserAuth } from '../../services/thunks/user';
 
 const App = () => {
   const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
+  const background = location.state?.background;
+
+  console.log('Current location:', location);
+  console.log('Background location:', background);
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const handleModalClose = () => {
     navigate(-1);
   };
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
-    dispatch(checkUserAuth());
+    // dispatch(checkUserAuth());
   }, []);
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed' element={<Feed />} />
         <Route
           path='/login'
@@ -91,7 +96,7 @@ const App = () => {
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
-      {backgroundLocation && (
+      {background && (
         <Routes>
           <Route
             path='/feed/:number'

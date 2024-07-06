@@ -21,10 +21,15 @@ export const BurgerConstructor: FC = () => {
   ) as TConstructorIngredient[];
   const dispatch = useDispatch();
 
+  // const constructorItems = {
+  //   bun: {
+  //     price: constructorBun ? constructorBun.price : 0
+  //   },
+  //   ingredients: constructorIngredients
+  // };
+
   const constructorItems = {
-    bun: {
-      price: constructorBun ? constructorBun.price : 0
-    },
+    bun: constructorBun,
     ingredients: constructorIngredients
   };
 

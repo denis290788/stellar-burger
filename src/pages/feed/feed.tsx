@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { getFeed } from '../../services/thunks/feed';
 import { selectorFeed } from '../../services/slices/feed';
+import { useLocation } from 'react-router-dom';
 
 export const Feed: FC = () => {
   /** TODO:DONE? взять переменную из стора */

@@ -1,20 +1,40 @@
-import { getUserApi, userApi } from '@api';
+import {
+  getUserApi,
+  loginUserApi,
+  logoutApi,
+  registerUserApi,
+  TLoginData,
+  TRegisterData,
+  updateUserApi
+} from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
+import { setIsAuthChecked, setUser } from '../slices/user';
 
-export const checkUserAuth = createAsyncThunk<
-  { user: TUser },
-  void,
-  { rejectValue: string }
->('user/checkUserAuth', async (_, { rejectWithValue }) => {
-  try {
-    const response = await getUserApi();
-    if (response.success) {
-      return response;
+export const checkUserAuth = createAsyncThunk(
+  'user/checkUserAuth',
+  async (_, { dispatch }) => {
+    if (localStorage.getItem('accessToken')) {
+      getUserApi()
+        .then((user) => dispatch(setUser(user.user)))
+        .finally(() => dispatch(setIsAuthChecked(true)));
     } else {
-      return rejectWithValue('Failed to fetch user data');
+      dispatch(setIsAuthChecked(true));
     }
-  } catch (error) {
-    return rejectWithValue('Failed to fetch user data');
   }
-});
+);
+
+export const login = createAsyncThunk('user/login', async (data: TLoginData) =>
+  loginUserApi(data)
+);
+
+export const logout = createAsyncThunk('user/logout', async () => logoutApi());
+
+export const register = createAsyncThunk(
+  'user/register',
+  async (data: TRegisterData) => registerUserApi(data)
+);
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async (data: Partial<TRegisterData>) => updateUserApi(data)
+);

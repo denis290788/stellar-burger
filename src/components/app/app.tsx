@@ -24,9 +24,6 @@ const App = () => {
   const location = useLocation();
   const background = location.state?.background;
 
-  console.log('Current location:', location);
-  console.log('Background location:', background);
-
   const navigate = useNavigate();
   const handleModalClose = () => {
     navigate(-1);
@@ -35,7 +32,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
-    // dispatch(checkUserAuth());
+    dispatch(checkUserAuth());
   }, []);
 
   return (

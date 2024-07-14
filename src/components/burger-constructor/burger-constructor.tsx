@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import {
@@ -7,7 +7,9 @@ import {
 } from '../../services/slices/burgerConstructor';
 import { useDispatch, useSelector } from '../../services/store';
 import { makeOrder } from '../../services/thunks/order';
-import { selectorOrder } from '../../services/slices/order';
+import { resetOrder, selectorOrder } from '../../services/slices/order';
+import { useNavigate } from 'react-router-dom';
+import { userDataSelector } from '../../services/slices/user';
 
 export const BurgerConstructor: FC = () => {
   /** TODO:DONE? взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -20,30 +22,30 @@ export const BurgerConstructor: FC = () => {
     selectorConstructorIngredients
   ) as TConstructorIngredient[];
   const dispatch = useDispatch();
-
-  // const constructorItems = {
-  //   bun: {
-  //     price: constructorBun ? constructorBun.price : 0
-  //   },
-  //   ingredients: constructorIngredients
-  // };
+  const navigate = useNavigate();
 
   const constructorItems = {
     bun: constructorBun,
     ingredients: constructorIngredients
   };
 
-  const { selectorOrderData, selectorOrderStatus } = selectorOrder;
+  const { selectorOrderData, selectorOrderStatus, selectorOrdersData } =
+    selectorOrder;
+
+  const orders = useSelector(selectorOrdersData);
 
   const orderStatusRequest = useSelector(selectorOrderStatus);
-  const orderRequest = orderStatusRequest === 'Success' ? true : false;
-  const orderModalData: TOrder | null = useSelector(selectorOrderData);
+  const orderRequest = orderStatusRequest === 'Loading' ? true : false;
+  const orderModalData = useSelector(selectorOrderData);
 
-  // const orderRequest = false;
-
-  // const orderModalData = null;
+  const user = useSelector(userDataSelector);
 
   const onOrderClick = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     if (!constructorItems.bun || orderRequest) return;
 
     const ingredientsIds = [
@@ -52,8 +54,11 @@ export const BurgerConstructor: FC = () => {
     ];
 
     dispatch(makeOrder(ingredientsIds));
+    console.log(orders);
   };
+
   const closeOrderModal = () => {
+    dispatch(resetOrder());
     dispatch(resetConstructor());
   };
 

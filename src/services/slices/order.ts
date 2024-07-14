@@ -1,49 +1,69 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TOrder } from '@utils-types';
-import { makeOrder } from '../thunks/order';
-import { getOrder } from '../thunks/getOrder';
+import { getOrders, makeOrder } from '../thunks/order';
+import { getOrder } from '../thunks/order';
 
 type TOrderState = {
-  info: TOrder | null;
+  order: TOrder | null;
+  orders: TOrder[];
   requestStatus: RequestStatus;
 };
 
 const initialState: TOrderState = {
-  info: null,
+  order: null,
+  orders: [],
   requestStatus: RequestStatus.Idle
 };
 
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrder: (state) => {
+      state.order = null;
+      state.requestStatus = RequestStatus.Idle;
+    }
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(makeOrder.pending, (state, action) => {
+      .addCase(makeOrder.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
-      .addCase(makeOrder.rejected, (state, action) => {
+      .addCase(makeOrder.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
       .addCase(makeOrder.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
-        state.info = action.payload.order;
+        state.orders.push(action.payload.order);
       })
       .addCase(getOrder.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(getOrder.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
-        state.info = action.payload;
+        state.order = action.payload;
       })
       .addCase(getOrder.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+      })
+      .addCase(getOrders.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(getOrders.fulfilled, (state, action) => {
+        state.requestStatus = RequestStatus.Success;
+        state.orders = action.payload;
+      })
+      .addCase(getOrders.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       });
   },
   selectors: {
-    selectorOrderData: (state: TOrderState) => state.info,
-    selectorOrderStatus: (state: TOrderState) => state.requestStatus
+    selectorOrderData: (state) => state.order,
+    selectorOrderStatus: (state) => state.requestStatus,
+    selectorOrdersData: (state) => state.orders
   }
 });
+
+export const { resetOrder } = orderSlice.actions;
 
 export const selectorOrder = orderSlice.selectors;

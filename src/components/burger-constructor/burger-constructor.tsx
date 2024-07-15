@@ -1,38 +1,36 @@
-import { FC, useMemo, useState } from 'react';
-import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
+import { FC, useEffect, useMemo } from 'react';
+import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import {
   resetConstructor,
-  selectorConstructor
+  selectorConstructorBun,
+  selectorConstructorIngredients
 } from '../../services/slices/burgerConstructor';
 import { useDispatch, useSelector } from '../../services/store';
 import { makeOrder } from '../../services/thunks/order';
-import { resetOrder, selectorOrder } from '../../services/slices/order';
+import {
+  resetOrder,
+  selectorOrderData,
+  selectorOrderStatus
+} from '../../services/slices/order';
 import { useNavigate } from 'react-router-dom';
 import { userDataSelector } from '../../services/slices/user';
 
 export const BurgerConstructor: FC = () => {
   /** TODO:DONE? взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const { selectorConstructorBun, selectorConstructorIngredients } =
-    selectorConstructor;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const constructorBun = useSelector(
     selectorConstructorBun
   ) as TConstructorIngredient;
   const constructorIngredients = useSelector(
     selectorConstructorIngredients
   ) as TConstructorIngredient[];
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const constructorItems = {
     bun: constructorBun,
     ingredients: constructorIngredients
   };
-
-  const { selectorOrderData, selectorOrderStatus, selectorOrdersData } =
-    selectorOrder;
-
-  const orders = useSelector(selectorOrdersData);
 
   const orderStatusRequest = useSelector(selectorOrderStatus);
   const orderRequest = orderStatusRequest === 'Loading' ? true : false;
@@ -54,7 +52,6 @@ export const BurgerConstructor: FC = () => {
     ];
 
     dispatch(makeOrder(ingredientsIds));
-    console.log(orders);
   };
 
   const closeOrderModal = () => {
@@ -71,8 +68,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
-  // return null;
 
   return (
     <BurgerConstructorUI

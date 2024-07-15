@@ -2,15 +2,16 @@ import { FC, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
-import { selectorConstructor } from '../../services/slices/burgerConstructor';
+import {
+  selectorConstructorIngredients,
+  selectorConstructorBun
+} from '../../services/slices/burgerConstructor';
 import { useSelector } from '../../services/store';
-import { selectorOrder } from '../../services/slices/order';
+import { selectorOrderData } from '../../services/slices/order';
 
 export const OrderInfo: FC = () => {
   /** TODO:DONE? взять переменные orderData и ingredients из стора */
 
-  const { selectorConstructorIngredients, selectorConstructorBun } =
-    selectorConstructor;
   const ingredients: TIngredient[] = useSelector(
     selectorConstructorIngredients
   ) as TConstructorIngredient[];
@@ -21,7 +22,6 @@ export const OrderInfo: FC = () => {
 
   const ingredientsIds = [...ingredients.map((ing) => ing._id), bun._id];
 
-  const { selectorOrderData } = selectorOrder;
   const order: TOrder | null = useSelector(selectorOrderData);
 
   if (!order) {

@@ -18,7 +18,7 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getIngredients } from '../../services/thunks/ingredients';
-import { checkUserAuth } from '../../services/thunks/user';
+import { getUser } from '../../services/thunks/user';
 
 const App = () => {
   const location = useLocation();
@@ -32,7 +32,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
-    dispatch(checkUserAuth());
+    dispatch(getUser());
   }, []);
 
   return (

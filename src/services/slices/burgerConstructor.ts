@@ -55,4 +55,5 @@ export const {
   resetConstructor
 } = burgerConstructorSlice.actions;
 
-export const selectorConstructor = burgerConstructorSlice.selectors;
+export const { selectorConstructorBun, selectorConstructorIngredients } =
+  burgerConstructorSlice.selectors;

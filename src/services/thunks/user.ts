@@ -8,33 +8,42 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setIsAuthChecked, setUser } from '../slices/user';
+import { setCookie } from '../../utils/cookie';
 
-export const checkUserAuth = createAsyncThunk(
-  'user/checkUserAuth',
-  async (_, { dispatch }) => {
-    if (localStorage.getItem('accessToken')) {
-      getUserApi()
-        .then((user) => dispatch(setUser(user.user)))
-        .finally(() => dispatch(setIsAuthChecked(true)));
-    } else {
-      dispatch(setIsAuthChecked(true));
-    }
+export const getUser = createAsyncThunk('user/getUser', async () => {
+  const response = await getUserApi();
+  return response.user;
+});
+
+export const login = createAsyncThunk(
+  'user/login',
+  async (data: TLoginData) => {
+    const response = await loginUserApi(data);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    return response.user;
   }
 );
 
-export const login = createAsyncThunk('user/login', async (data: TLoginData) =>
-  loginUserApi(data)
-);
-
-export const logout = createAsyncThunk('user/logout', async () => logoutApi());
+export const logout = createAsyncThunk('user/logout', async () => {
+  logoutApi();
+  localStorage.removeItem('refreshToken');
+});
 
 export const register = createAsyncThunk(
   'user/register',
-  async (data: TRegisterData) => registerUserApi(data)
+  async (data: TRegisterData) => {
+    const responce = await registerUserApi(data);
+    setCookie('accessToken', responce.accessToken);
+    localStorage.setItem('refreshToken', responce.refreshToken);
+    return responce.user;
+  }
 );
 
 export const updateUser = createAsyncThunk(
   'user/updateUser',
-  async (data: Partial<TRegisterData>) => updateUserApi(data)
+  async (data: Partial<TRegisterData>) => {
+    const response = await updateUserApi(data);
+    return response.user;
+  }
 );

@@ -2,15 +2,16 @@ import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
-import { selectorConstructor } from '../../services/slices/burgerConstructor';
+import {
+  selectorConstructorBun,
+  selectorConstructorIngredients
+} from '../../services/slices/burgerConstructor';
 import { useSelector } from '../../services/store';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  const { selectorConstructorBun, selectorConstructorIngredients } =
-    selectorConstructor;
   const constructorBun = useSelector(selectorConstructorBun);
   const constructorIngredients = useSelector(selectorConstructorIngredients);
   /** TODO:DONE? взять переменную из стора */

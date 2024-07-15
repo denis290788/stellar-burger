@@ -12,14 +12,15 @@ type ProtectedRouteProps = {
 };
 
 export const ProtectedRoute = ({
-  onlyUnAuth = false,
+  onlyUnAuth,
   children
 }: ProtectedRouteProps) => {
   const isAuthChecked = useSelector(isAuthCheckedSelector); // isAuthCheckedSelector — селектор получения состояния загрузки пользователя
   const user = useSelector(userDataSelector); // userDataSelector — селектор получения пользователя из store
+  const loginRequest = useSelector((state) => state.user.loginRequest);
   const location = useLocation();
 
-  if (!isAuthChecked) {
+  if (!isAuthChecked && loginRequest) {
     // пока идёт чекаут пользователя, показываем прелоадер
     return <Preloader />;
   }

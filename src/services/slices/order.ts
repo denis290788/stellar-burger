@@ -29,13 +29,14 @@ export const orderSlice = createSlice({
       .addCase(makeOrder.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
-      .addCase(makeOrder.rejected, (state) => {
-        state.requestStatus = RequestStatus.Failed;
-      })
       .addCase(makeOrder.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
         state.orders.push(action.payload.order);
       })
+      .addCase(makeOrder.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+      })
+
       .addCase(getOrder.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
@@ -46,6 +47,7 @@ export const orderSlice = createSlice({
       .addCase(getOrder.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
+
       .addCase(getOrders.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
@@ -66,4 +68,5 @@ export const orderSlice = createSlice({
 
 export const { resetOrder } = orderSlice.actions;
 
-export const selectorOrder = orderSlice.selectors;
+export const { selectorOrderData, selectorOrderStatus, selectorOrdersData } =
+  orderSlice.selectors;

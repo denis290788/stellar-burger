@@ -3,16 +3,10 @@ import { getOrderByNumberApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-// export const makeOrder = createAsyncThunk(
-//   'order/makeOrder',
-//   async (ingredients: string[]) => await orderBurgerApi(ingredients)
-// );
-
 export const makeOrder = createAsyncThunk(
   'order/makeOrder',
   async (ingredients: string[]) => {
     const order = await orderBurgerApi(ingredients);
-    console.log(order.order);
     return order;
   }
 );

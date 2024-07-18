@@ -9,17 +9,18 @@ import { useParams } from 'react-router-dom';
 import { getOrder } from '../../services/thunks/order';
 
 export const OrderInfo: FC = () => {
-  /** TODO:DONE? взять переменные orderData и ingredients из стора */
+  /** TODO: взять переменные orderData и ingredients из стора */
   const ingredients: TIngredient[] = useSelector(selectorIngredientsData);
-
-  const [orderData] = useSelector(selectorOrdersData);
+  const orders = useSelector(selectorOrdersData);
 
   const dispatch = useDispatch();
   const { number } = useParams();
 
   useEffect(() => {
     dispatch(getOrder(Number(number)));
-  }, []);
+  }, [dispatch, number]);
+
+  const orderData = orders.find((order) => order.number === Number(number));
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

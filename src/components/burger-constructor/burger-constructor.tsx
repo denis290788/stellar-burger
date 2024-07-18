@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { userDataSelector } from '../../services/slices/user';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO:DONE? взять переменные constructorItems, orderRequest и orderModalData из стора */
+  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

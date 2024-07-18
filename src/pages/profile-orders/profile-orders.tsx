@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { getOrders } from '../../services/thunks/order';
 
 export const ProfileOrders: FC = () => {
-  /** TODO:DONE взять переменную из стора */
+  /** TODO: взять переменную из стора */
 
   const orders: TOrder[] = useSelector(selectorOrdersData);
   const dispatch = useDispatch();

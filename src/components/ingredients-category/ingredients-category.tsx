@@ -14,7 +14,7 @@ export const IngredientsCategory = forwardRef<
 >(({ title, titleRef, ingredients }, ref) => {
   const constructorBun = useSelector(selectorConstructorBun);
   const constructorIngredients = useSelector(selectorConstructorIngredients);
-  /** TODO:DONE? взять переменную из стора */
+  /** TODO: взять переменную из стора */
   const burgerConstructor = {
     bun: {
       _id: constructorBun ? constructorBun._id : ''

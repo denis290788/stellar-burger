@@ -7,7 +7,7 @@ import { useSelector } from '../../services/store';
 import { selectorIngredientsData } from '../../services/slices/ingredients';
 
 export const BurgerIngredients: FC = () => {
-  /** TODO:DONE взять переменные из стора */
+  /** TODO: взять переменные из стора */
   const ingredients = useSelector(selectorIngredientsData);
 
   const buns = ingredients.filter((item) => item.type === 'bun');

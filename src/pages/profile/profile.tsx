@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { updateUser } from '../../services/thunks/user';
 
 export const Profile: FC = () => {
-  /** TODO:DONE взять переменную из стора */
+  /** TODO: взять переменную из стора */
 
   const userData = useSelector(userDataSelector);
   const user = {
@@ -19,14 +19,6 @@ export const Profile: FC = () => {
     email: user.email,
     password: ''
   });
-
-  // useEffect(() => {
-  //   setFormValue((prevState) => ({
-  //     ...prevState,
-  //     name: user.name || '',
-  //     email: user?.email || ''
-  //   }));
-  // }, [user]);
 
   useEffect(() => {
     setFormValue((prevState) => ({

@@ -43,7 +43,14 @@ export const orderSlice = createSlice({
       })
       .addCase(getOrder.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
-        state.orders = action.payload.orders;
+        state.order = action.payload.orders[0];
+        const newOrders = action.payload.orders.filter(
+          (order) =>
+            !state.orders.some(
+              (existingOrder) => existingOrder._id === order._id
+            )
+        );
+        state.orders.push(...newOrders);
       })
       .addCase(getOrder.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;

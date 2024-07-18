@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import {
@@ -47,6 +47,7 @@ export const BurgerConstructor: FC = () => {
     if (!constructorItems.bun || orderRequest) return;
 
     const ingredientsIds = [
+      constructorBun._id,
       ...constructorIngredients.map((ing) => ing._id),
       constructorBun._id
     ];

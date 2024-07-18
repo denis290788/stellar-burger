@@ -1,7 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TUser } from '@utils-types';
 import { getUser, login, logout, register, updateUser } from '../thunks/user';
-import { TLoginData } from '@api';
 
 export interface TUserState {
   isAuthChecked: boolean;
@@ -23,7 +22,6 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-
       .addCase(register.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })

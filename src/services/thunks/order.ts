@@ -11,11 +11,11 @@ export const makeOrder = createAsyncThunk(
   }
 );
 
-export const getOrder = createAsyncThunk<TOrder, number>(
+export const getOrder = createAsyncThunk(
   'order/getOrder',
   async (number: number) => {
-    const responce = await getOrderByNumberApi(number);
-    return responce.orders[0];
+    const response = await getOrderByNumberApi(number);
+    return response;
   }
 );
 
@@ -23,7 +23,6 @@ export const getOrders = createAsyncThunk<TOrder[]>(
   'order/getOrders',
   async () => {
     const orders = await getOrdersApi();
-    console.log(orders);
     return orders;
   }
 );

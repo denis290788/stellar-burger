@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
 import { useDispatch } from '../../services/store';
 import { register } from '../../services/thunks/user';

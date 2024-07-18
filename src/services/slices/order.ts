@@ -31,6 +31,7 @@ export const orderSlice = createSlice({
       })
       .addCase(makeOrder.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
+        state.order = action.payload.order;
         state.orders.push(action.payload.order);
       })
       .addCase(makeOrder.rejected, (state) => {
@@ -42,7 +43,7 @@ export const orderSlice = createSlice({
       })
       .addCase(getOrder.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
-        state.order = action.payload;
+        state.orders = action.payload.orders;
       })
       .addCase(getOrder.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
@@ -70,3 +71,5 @@ export const { resetOrder } = orderSlice.actions;
 
 export const { selectorOrderData, selectorOrderStatus, selectorOrdersData } =
   orderSlice.selectors;
+
+export default orderSlice.reducer;

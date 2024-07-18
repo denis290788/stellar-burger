@@ -1,44 +1,25 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
-import {
-  selectorConstructorIngredients,
-  selectorConstructorBun
-} from '../../services/slices/burgerConstructor';
-import { useSelector } from '../../services/store';
-import { selectorOrderData } from '../../services/slices/order';
+import { TIngredient } from '@utils-types';
+import { useDispatch, useSelector } from '../../services/store';
+import { selectorOrdersData } from '../../services/slices/order';
+import { selectorIngredientsData } from '../../services/slices/ingredients';
+import { useParams } from 'react-router-dom';
+import { getOrder } from '../../services/thunks/order';
 
 export const OrderInfo: FC = () => {
   /** TODO:DONE? взять переменные orderData и ingredients из стора */
+  const ingredients: TIngredient[] = useSelector(selectorIngredientsData);
 
-  const ingredients: TIngredient[] = useSelector(
-    selectorConstructorIngredients
-  ) as TConstructorIngredient[];
-  const bun: TIngredient = useSelector(
-    selectorConstructorBun
-  ) as TConstructorIngredient;
-  // const ingredientsIds = ingredients.map((ing) => ing._id);
+  const [orderData] = useSelector(selectorOrdersData);
 
-  const ingredientsIds = [...ingredients.map((ing) => ing._id), bun._id];
+  const dispatch = useDispatch();
+  const { number } = useParams();
 
-  const order: TOrder | null = useSelector(selectorOrderData);
-
-  if (!order) {
-    return <Preloader />;
-  }
-
-  const orderData = {
-    createdAt: order.createdAt,
-    ingredients: ingredientsIds,
-    _id: order._id,
-    status: order.status,
-    name: order.name,
-    updatedAt: order.updatedAt,
-    number: order.number
-  };
-
-  // const ingredients: TIngredient[] = [];
+  useEffect(() => {
+    dispatch(getOrder(Number(number)));
+  }, []);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

@@ -30,9 +30,10 @@ export const ingredientsSlice = createSlice({
       });
   },
   selectors: {
-    selectorIngredientsData: (state: TIngredientState) => state.data,
-    selectorIngredientsStatus: (state: TIngredientState) => state.status
+    selectorIngredientsData: (state) => state.data,
+    selectorIngredientsStatus: (state) => state.status
   }
 });
 
-export const selectorIngredients = ingredientsSlice.selectors;
+export const { selectorIngredientsData, selectorIngredientsStatus } =
+  ingredientsSlice.selectors;

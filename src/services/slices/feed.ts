@@ -36,18 +36,16 @@ export const feedSlice = createSlice({
       });
   },
   selectors: {
-    selectorFeedData: (state: TFeedState) => state.orders,
-    selectorFeedTotal: (state: TFeedState) => state.total,
-    selectorFeedTotalToday: (state: TFeedState) => state.totalToday,
-    selectorFeedStatus: (state: TFeedState) => state.status
+    selectorFeedData: (state) => state.orders,
+    selectorFeedTotal: (state) => state.total,
+    selectorFeedTotalToday: (state) => state.totalToday,
+    selectorFeedStatus: (state) => state.status
   }
 });
 
-// export const {
-//   selectorFeedData,
-//   selectorFeedTotal,
-//   selectorFeedTotalToday,
-//   selectorFeedStatus
-// } = feedSlice.selectors;
-
-export const selectorFeed = feedSlice.selectors;
+export const {
+  selectorFeedData,
+  selectorFeedTotal,
+  selectorFeedTotalToday,
+  selectorFeedStatus
+} = feedSlice.selectors;

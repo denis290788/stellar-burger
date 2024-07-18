@@ -6,7 +6,6 @@ import { updateUser } from '../../services/thunks/user';
 
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
-
   const userData = useSelector(userDataSelector);
   const user = {
     name: userData!.name,

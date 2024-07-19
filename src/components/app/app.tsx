@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getIngredients } from '../../services/thunks/ingredients';
 import { getUser } from '../../services/thunks/user';
+import { resetOrder } from '../../services/slices/order';
 
 const App = () => {
   const location = useLocation();
@@ -91,6 +92,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
@@ -99,7 +109,13 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title={'Order Info'} onClose={handleModalClose}>
+              <Modal
+                title={'Order Info'}
+                onClose={() => {
+                  dispatch(resetOrder());
+                  handleModalClose();
+                }}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -116,7 +132,13 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title={'Order Info'} onClose={handleModalClose}>
+                <Modal
+                  title={'Order Info'}
+                  onClose={() => {
+                    dispatch(resetOrder());
+                    handleModalClose();
+                  }}
+                >
                   <OrderInfo />
                 </Modal>
               </ProtectedRoute>

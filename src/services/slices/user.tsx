@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TUser } from '@utils-types';
 import { getUser, login, logout, register, updateUser } from '../thunks/user';
+import { access } from 'fs';
 
 export interface TUserState {
+  error: string | null;
   isAuthChecked: boolean;
   user: TUser | null;
   loginRequest: boolean;
@@ -10,6 +12,7 @@ export interface TUserState {
 }
 
 const initialState: TUserState = {
+  error: null,
   isAuthChecked: false,
   user: null,
   loginRequest: false,
@@ -30,8 +33,9 @@ export const userSlice = createSlice({
         state.requestStatus = RequestStatus.Success;
         state.isAuthChecked = true;
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(register.rejected, (state, action) => {
         state.requestStatus = RequestStatus.Failed;
+        state.error = action.error.message!;
       })
       .addCase(login.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
@@ -41,8 +45,9 @@ export const userSlice = createSlice({
         state.requestStatus = RequestStatus.Success;
         state.isAuthChecked = true;
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(login.rejected, (state, action) => {
         state.requestStatus = RequestStatus.Failed;
+        state.error = action.error.message!;
       })
       .addCase(getUser.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
@@ -60,8 +65,9 @@ export const userSlice = createSlice({
         state.requestStatus = RequestStatus.Success;
         state.isAuthChecked = true;
       })
-      .addCase(updateUser.rejected, (state) => {
+      .addCase(updateUser.rejected, (state, action) => {
         state.requestStatus = RequestStatus.Failed;
+        state.error = action.error.message!;
       })
       .addCase(logout.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
@@ -69,17 +75,26 @@ export const userSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isAuthChecked = false;
+        state.requestStatus = RequestStatus.Success;
       })
-      .addCase(logout.rejected, (state) => {
+      .addCase(logout.rejected, (state, action) => {
         state.requestStatus = RequestStatus.Failed;
+        state.error = action.error.message!;
       });
   },
   selectors: {
     userDataSelector: (state: TUserState) => state.user,
-    isAuthCheckedSelector: (state: TUserState) => state.isAuthChecked
+    isAuthCheckedSelector: (state: TUserState) => state.isAuthChecked,
+    userRequestStatus: (state: TUserState) => state.requestStatus,
+    errorSelector: (state: TUserState) => state.error
   }
 });
 
-export const { userDataSelector, isAuthCheckedSelector } = userSlice.selectors;
+export const {
+  userDataSelector,
+  isAuthCheckedSelector,
+  userRequestStatus,
+  errorSelector
+} = userSlice.selectors;
 
 export default userSlice.reducer;

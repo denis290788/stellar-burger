@@ -235,13 +235,3 @@ export const logoutApi = () =>
       token: localStorage.getItem('refreshToken')
     })
   }).then((res) => checkResponse<TServerResponse<{}>>(res));
-
-export const userApi = {
-  logoutApi,
-  updateUserApi,
-  getUserApi,
-  resetPasswordApi,
-  forgotPasswordApi,
-  loginUserApi,
-  registerUserApi
-};

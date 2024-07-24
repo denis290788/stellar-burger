@@ -8,7 +8,7 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export const getUser = createAsyncThunk('user/getUser', async () => {
   const response = await getUserApi();
@@ -26,8 +26,10 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk('user/logout', async () => {
-  logoutApi();
-  localStorage.removeItem('refreshToken');
+  logoutApi().then(() => {
+    localStorage.removeItem('refreshToken');
+    deleteCookie('accessToken');
+  });
 });
 
 export const register = createAsyncThunk(

@@ -2,9 +2,13 @@
   margin: 0 60px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
   width: 520px;
+  justify-items: center;
+  align-self: center;
+  height: 100%;
 }
 
 .nutritional_values {

@@ -41,15 +41,15 @@ describe('заказ создается корректно', function () {
 
     window.localStorage.setItem(
       'refreshToken',
-      JSON.stringify('test-refreshToken')
+      JSON.stringify('refreshTokenTest')
     );
-    cy.setCookie('accessToken', 'test-accessToken');
+    cy.setCookie('accessToken', 'accessTokenTest');
   });
 
   it('открывается модальное окно после оформления заказа, после закрытия очищается конструктор', function () {
     cy.get('[data-cy=ingredients]').contains('Добавить').click();
     cy.contains('Оформить заказ').click();
-    cy.get('[data-cy=order-number]').contains('123456').should('exist');
+    cy.get('[data-cy=order-number]').contains('222222').should('exist');
     cy.get('[data-cy=close-button]').click();
     cy.get('[data-cy=order-number]').should('not.exist');
 

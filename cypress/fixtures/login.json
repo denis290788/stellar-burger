@@ -1,6 +1,0 @@
-{
-  "success": true,
-  "accessToken": "access token",
-  "refreshToken": "refresh token",
-  "user": { "email": "newuser@mail.com", "name": "newUser" }
-}

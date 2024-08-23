@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TIngredient } from '@utils-types';
+
 import { getIngredients } from '../thunks/ingredients';
 
-type TIngredientState = {
+export type TIngredientState = {
   data: TIngredient[];
   status: RequestStatus;
 };

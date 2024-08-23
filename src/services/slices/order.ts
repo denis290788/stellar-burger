@@ -3,7 +3,7 @@ import { RequestStatus, TOrder } from '@utils-types';
 import { getOrders, makeOrder } from '../thunks/order';
 import { getOrder } from '../thunks/order';
 
-type TOrderState = {
+export type TOrderState = {
   order: TOrder | null;
   orders: TOrder[];
   requestStatus: RequestStatus;

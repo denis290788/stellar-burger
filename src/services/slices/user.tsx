@@ -57,6 +57,10 @@ export const userSlice = createSlice({
         state.requestStatus = RequestStatus.Success;
         state.isAuthChecked = true;
       })
+      .addCase(getUser.rejected, (state, action) => {
+        state.requestStatus = RequestStatus.Failed;
+        state.error = action.error.message!;
+      })
       .addCase(updateUser.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })

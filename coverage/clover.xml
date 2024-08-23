@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1724444347531" clover="3.2.0">
-  <project timestamp="1724444347531" name="All files">
-    <metrics statements="795" coveredstatements="567" conditionals="42" coveredconditionals="41" methods="44" coveredmethods="9" elements="881" coveredelements="617" complexity="0" loc="795" ncloc="795" packages="4" files="13" classes="13"/>
-    <package name="services">
-      <metrics statements="34" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="store.ts" path="C:\Users\denis\Documents\dev\stellar-burger\src\services\store.ts">
-        <metrics statements="34" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1724446594284" clover="3.2.0">
+  <project timestamp="1724446594284" name="All files">
+    <metrics statements="761" coveredstatements="533" conditionals="42" coveredconditionals="41" methods="43" coveredmethods="9" elements="846" coveredelements="583" complexity="0" loc="761" ncloc="761" packages="3" files="12" classes="12"/>
     <package name="services.slices">
       <metrics statements="336" coveredstatements="334" conditionals="41" coveredconditionals="40" methods="25" coveredmethods="9"/>
       <file name="burgerConstructor.ts" path="C:\Users\denis\Documents\dev\stellar-burger\src\services\slices\burgerConstructor.ts">

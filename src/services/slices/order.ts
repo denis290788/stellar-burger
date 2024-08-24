@@ -9,7 +9,7 @@ export type TOrderState = {
   requestStatus: RequestStatus;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   order: null,
   orders: [],
   requestStatus: RequestStatus.Idle

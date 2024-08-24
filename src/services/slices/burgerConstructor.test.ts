@@ -1,81 +1,62 @@
 import {
   addToConstructor,
   burgerConstructorSlice,
+  initialState,
   removeFromConstructor,
-  reorderConstructor,
-  TBurgerConstructorState
+  reorderConstructor
 } from './burgerConstructor';
 
 describe('burgerConstructorSlice', () => {
+  const testIngredient = {
+    _id: '1',
+    name: 'ингредиент 1',
+    type: 'bun',
+    proteins: 80,
+    fat: 24,
+    carbohydrates: 53,
+    calories: 420,
+    price: 1255,
+    image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+    image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+    image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
+  };
+
   const testIngredients = [
+    testIngredient,
     {
-      _id: '1',
-      name: 'ингредиент 1',
-      type: 'bun',
-      proteins: 80,
-      fat: 24,
-      carbohydrates: 53,
-      calories: 420,
-      price: 1255,
-      image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
-    },
-    {
+      ...testIngredient,
       _id: '2',
       name: 'ингредиент 2',
-      type: 'main',
-      proteins: 420,
-      fat: 142,
-      carbohydrates: 242,
-      calories: 4242,
-      price: 424,
-      image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-      __v: 0
+      type: 'main'
     },
     {
+      ...testIngredient,
       _id: '3',
       name: 'ингредиент 3',
-      type: 'main',
-      proteins: 44,
-      fat: 26,
-      carbohydrates: 85,
-      calories: 643,
-      price: 988,
-      image: 'https://code.s3.yandex.net/react/code/meat-03.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/meat-03-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/meat-03-large.png',
-      __v: 0
+      type: 'main'
     }
   ];
 
   test('в конструктор добавляется ингредиент', () => {
-    const initialState: TBurgerConstructorState = {
-      bun: null,
-      ingredients: []
-    };
-
     const newState = burgerConstructorSlice.reducer(
       initialState,
-      addToConstructor(testIngredients[0])
+      addToConstructor(testIngredient)
     );
 
     expect(newState.bun).toEqual({
-      ...testIngredients[0],
+      ...testIngredient,
       id: expect.any(String)
     });
   });
 
   test('из конструктора удаляется ингредиент', () => {
-    const initialState: TBurgerConstructorState = {
-      bun: null,
+    const actualState = {
+      ...initialState,
       ingredients: testIngredients.slice(1)
     };
 
     const newState = burgerConstructorSlice.reducer(
-      initialState,
+      actualState,
       removeFromConstructor(1)
     );
 
@@ -83,46 +64,28 @@ describe('burgerConstructorSlice', () => {
   });
 
   test('ингредиенты в конструкторе меняются местами', () => {
-    const initialState: TBurgerConstructorState = {
-      bun: null,
+    const actualState = {
+      ...initialState,
       ingredients: testIngredients.slice(1)
     };
 
     const newState = burgerConstructorSlice.reducer(
-      initialState,
+      actualState,
       reorderConstructor({ from: 0, to: 1 })
     );
 
     expect(newState.ingredients).toEqual([
       {
+        ...testIngredient,
         _id: '3',
         name: 'ингредиент 3',
-        type: 'main',
-        proteins: 44,
-        fat: 26,
-        carbohydrates: 85,
-        calories: 643,
-        price: 988,
-        image: 'https://code.s3.yandex.net/react/code/meat-03.png',
-        image_mobile:
-          'https://code.s3.yandex.net/react/code/meat-03-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/meat-03-large.png',
-        __v: 0
+        type: 'main'
       },
       {
+        ...testIngredient,
         _id: '2',
         name: 'ингредиент 2',
-        type: 'main',
-        proteins: 420,
-        fat: 142,
-        carbohydrates: 242,
-        calories: 4242,
-        price: 424,
-        image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-        image_mobile:
-          'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-        __v: 0
+        type: 'main'
       }
     ]);
   });

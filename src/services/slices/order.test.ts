@@ -1,14 +1,8 @@
 import { RequestStatus } from '@utils-types';
-import { orderSlice, resetOrder, TOrderState } from './order';
+import { initialState, orderSlice, resetOrder } from './order';
 import { getOrder, getOrders, makeOrder } from '../thunks/order';
 
 describe('orderSlice', () => {
-  const initialState: TOrderState = {
-    order: null,
-    orders: [],
-    requestStatus: RequestStatus.Idle
-  };
-
   const testOrder = {
     _id: '1',
     ingredients: ['643d69a5c3f7b9001cfa093c'],

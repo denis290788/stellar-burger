@@ -1,14 +1,14 @@
 import { RequestStatus } from '@utils-types';
-import { feedSlice, TFeedState } from './feed';
+import { feedSlice, initialState, TFeedState } from './feed';
 import { getFeed } from '../thunks/feed';
 
 describe('feedSlice', () => {
-  const initialState: TFeedState = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    status: RequestStatus.Idle
-  };
+  // const initialState: TFeedState = {
+  //   orders: [],
+  //   total: 0,
+  //   totalToday: 0,
+  //   status: RequestStatus.Idle
+  // };
 
   const testResponce = {
     success: true,

@@ -1,15 +1,15 @@
 import { RequestStatus } from '@utils-types';
-import { userSlice, TUserState } from './user';
+import { userSlice, TUserState, initialState } from './user';
 import { getUser, login, logout, register, updateUser } from '../thunks/user';
 
 describe('userSlice', () => {
-  const initialState: TUserState = {
-    error: null,
-    isAuthChecked: false,
-    user: null,
-    loginRequest: false,
-    requestStatus: RequestStatus.Idle
-  };
+  // const initialState: TUserState = {
+  //   error: null,
+  //   isAuthChecked: false,
+  //   user: null,
+  //   loginRequest: false,
+  //   requestStatus: RequestStatus.Idle
+  // };
 
   const registerTestData = {
     email: 'test@mail.ru',

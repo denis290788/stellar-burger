@@ -1,13 +1,8 @@
 import { RequestStatus } from '@utils-types';
-import { ingredientsSlice, TIngredientState } from './ingredients';
+import { ingredientsSlice, initialState } from './ingredients';
 import { getIngredients } from '../thunks/ingredients';
 
 describe('ingredientsSlice', () => {
-  const initialState: TIngredientState = {
-    data: [],
-    status: RequestStatus.Idle
-  };
-
   const testIngredients = [
     {
       _id: '1',

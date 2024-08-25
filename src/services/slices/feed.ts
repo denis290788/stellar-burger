@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TOrder } from '@utils-types';
 import { getFeed } from '../thunks/feed';
 
-type TFeedState = {
+export type TFeedState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
   status: RequestStatus;
 };
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,

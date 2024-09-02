@@ -22,6 +22,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
           <BurgerIcon type={'primary'} />
           <p
             className={`text text_type_main-default ml-2 mr-10 ${styles.text}`}
+            data-cy='mainpage-link'
           >
             Конструктор
           </p>
@@ -49,7 +50,10 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
           }
         >
           <ProfileIcon type={'primary'} />
-          <p className={`text text_type_main-default ml-2 ${styles.text}`}>
+          <p
+            className={`text text_type_main-default ml-2 ${styles.text}`}
+            data-cy='profile-link'
+          >
             {userName || 'Личный кабинет'}
           </p>
         </NavLink>
